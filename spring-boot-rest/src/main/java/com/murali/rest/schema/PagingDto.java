@@ -13,11 +13,8 @@ import lombok.extern.jackson.Jacksonized;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Jacksonized
-public class EmployeeFilterDto {
+public class PagingDto {
 
-    private PagingDto page;
-    private FilterFieldDto salary;
-    private FilterFieldDto age;
-    private FilterFieldDto position;
-
+    private Integer limit;
+    private Integer page;
 }

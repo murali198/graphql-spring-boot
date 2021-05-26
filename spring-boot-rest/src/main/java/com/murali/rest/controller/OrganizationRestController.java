@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "org")
 @Slf4j
@@ -22,6 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrganizationRestController {
 
     private OrganizationService orgService;
+
+    @GetMapping
+    public ResponseEntity<List<OrganizationDto>> getAllOrganization() {
+        return ResponseEntity.ok(orgService.getAllOrganization());
+    }
 
     @PostMapping
     public ResponseEntity<OrganizationDto> createOrganization(@RequestBody @Validated OrganizationDto orgDto) {

@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -30,6 +31,8 @@ public class Employee {
 	private int salary;
 
 	private int age;
+
+	private LocalDate dob;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Department department;

@@ -1,7 +1,8 @@
 package com.murali.rest.core.service;
 
-import com.murali.rest.core.domain.Organization;
 import com.murali.rest.schema.OrganizationDto;
+
+import java.util.List;
 
 public interface OrganizationService {
 
@@ -12,4 +13,7 @@ public interface OrganizationService {
     OrganizationDto updateOrganization(String id, OrganizationDto organizationDto);
 
     String deleteOrganization(String id);
+
+    List<OrganizationDto> getAllOrganization();
+
 }

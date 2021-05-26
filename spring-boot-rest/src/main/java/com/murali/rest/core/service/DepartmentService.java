@@ -1,7 +1,8 @@
 package com.murali.rest.core.service;
 
 import com.murali.rest.schema.DepartmentDto;
-import com.murali.rest.schema.EmployeeDto;
+
+import java.util.List;
 
 public interface DepartmentService {
 
@@ -12,4 +13,6 @@ public interface DepartmentService {
     DepartmentDto updateDepartment(String id, DepartmentDto departmentDto);
 
     String deleteDepartment(String id);
+
+    List<DepartmentDto> getAllDepartment();
 }

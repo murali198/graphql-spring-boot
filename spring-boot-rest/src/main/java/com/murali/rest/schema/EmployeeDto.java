@@ -21,6 +21,7 @@ public class EmployeeDto {
     private String position;
     private Integer salary;
     private Integer age;
+    private String dob;
     private Integer departmentId;
     private Integer orgId;
     private EmployeeFilterDto filter;

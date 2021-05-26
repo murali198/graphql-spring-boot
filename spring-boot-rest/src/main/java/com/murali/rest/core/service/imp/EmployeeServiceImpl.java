@@ -10,9 +10,13 @@ import com.murali.rest.schema.EmployeeFilterDto;
 import com.murali.rest.schema.FilterFieldDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,10 +39,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (filter.getAge() != null)
             spec = (spec == null ? byAge(filter.getAge()) : spec.and(byAge(filter.getAge())));
         if (filter.getPosition() != null)
-            spec = (spec == null ? byPosition(filter.getPosition()) :
-                    spec.and(byPosition(filter.getPosition())));
-        if (spec != null) {
+            spec = (spec == null ? byPosition(filter.getPosition()) : spec.and(byPosition(filter.getPosition())));
+        if (spec != null && filter.getPage() != null) {
+            Page<Employee> empPage = empRepository.findAll(spec, PageRequest.of(filter.getPage().getPage(), filter.getPage().getLimit()));
+            empList = empPage.getContent();
+        } else if (spec != null && filter.getPage() == null) {
             empList = empRepository.findAll(spec);
+        } else if (spec == null && filter.getPage() != null) {
+            Page<Employee> empPage = empRepository.findAll(null, PageRequest.of(filter.getPage().getPage(), filter.getPage().getLimit()));
+            empList = empPage.getContent();
         } else {
             Iterable<Employee> iterable = empRepository.findAll();
             empList = new ArrayList<>();
@@ -55,6 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                             .orgId(emp.getOrganization().getId())
                             .position(emp.getPosition())
                             .salary(emp.getSalary())
+                            .dob(emp.getDob().format(DateTimeFormatter.ISO_DATE))
                             .build())
                     .collect(Collectors.toList());
         }
@@ -69,6 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .lastName(employeeDto.getLastName())
                 .age(employeeDto.getAge())
                 .position(employeeDto.getPosition())
+                .dob(LocalDate.parse(employeeDto.getDob(), DateTimeFormatter.ISO_DATE))
                 .organization(orgRepository.findById(Integer.valueOf(employeeDto.getOrgId())).get())
                 .build();
         Employee emp = empRepository.save(employee);
@@ -81,6 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orgId(emp.getOrganization().getId())
                 .position(emp.getPosition())
                 .salary(emp.getSalary())
+                .dob(emp.getDob().format(DateTimeFormatter.ISO_DATE))
                 .build();
     }
 
@@ -96,6 +108,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orgId(emp.getOrganization().getId())
                 .position(emp.getPosition())
                 .salary(emp.getSalary())
+                .dob(emp.getDob().format(DateTimeFormatter.ISO_DATE))
                 .build();
     }
 
@@ -108,6 +121,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .lastName(employeeDto.getLastName())
                 .age(employeeDto.getAge())
                 .position(employeeDto.getPosition())
+                .dob(LocalDate.parse(employeeDto.getDob(), DateTimeFormatter.ISO_DATE))
                 .organization(orgRepository.findById(Integer.valueOf(employeeDto.getOrgId())).get())
                 .build();
         Employee emp = empRepository.save(employee);
@@ -120,6 +134,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orgId(emp.getOrganization().getId())
                 .position(emp.getPosition())
                 .salary(emp.getSalary())
+                .dob(emp.getDob().format(DateTimeFormatter.ISO_DATE))
                 .build();
     }
 

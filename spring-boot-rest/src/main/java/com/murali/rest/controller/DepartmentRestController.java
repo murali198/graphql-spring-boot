@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "department")
 @Slf4j
@@ -23,6 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class DepartmentRestController {
 
     private DepartmentService depService;
+
+    @GetMapping
+    public ResponseEntity<List<DepartmentDto>> getAllDepartment() {
+        return ResponseEntity.ok(depService.getAllDepartment());
+    }
 
     @PostMapping
     public ResponseEntity<DepartmentDto> createDepartment(@RequestBody @Validated DepartmentDto depDto) {

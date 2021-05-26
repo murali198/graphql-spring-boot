@@ -8,6 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -53,5 +57,18 @@ public class OrganizationServiceImpl implements OrganizationService {
     public String deleteOrganization(String id) {
         orgRepository.deleteById(Integer.valueOf(id));
         return "Success";
+    }
+
+    @Override
+    public List<OrganizationDto> getAllOrganization() {
+        List<Organization> organizations = new ArrayList<>();
+        orgRepository.findAll().forEach(organizations::add);
+        return organizations.stream()
+                .map(org -> OrganizationDto.builder()
+                        .name(org.getName())
+                        .id(org.getId())
+                        .build()
+                )
+                .collect(Collectors.toList());
     }
 }

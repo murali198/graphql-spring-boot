@@ -11,6 +11,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @Slf4j
 @Service
@@ -62,5 +66,19 @@ public class DepartmentServiceImpl implements DepartmentService {
     public String deleteDepartment(String id) {
         depRepository.deleteById(Integer.valueOf(id));
         return "Success";
+    }
+
+    @Override
+    public List<DepartmentDto> getAllDepartment() {
+        List<Department> departments = new ArrayList<>();
+        depRepository.findAll().forEach(departments::add);
+        return departments.stream()
+                .map(dep -> DepartmentDto.builder()
+                        .name(dep.getName())
+                        .id(dep.getId())
+                        .orgId(dep.getOrganization().getId())
+                        .build()
+                )
+                .collect(Collectors.toList());
     }
 }
