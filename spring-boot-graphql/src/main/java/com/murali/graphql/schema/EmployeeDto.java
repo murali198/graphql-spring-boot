@@ -1,4 +1,4 @@
-package com.murali.rest.schema;
+package com.murali.graphql.schema;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

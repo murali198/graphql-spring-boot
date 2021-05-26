@@ -1,0 +1,41 @@
+scalar Date
+
+interface BasicEmployee {
+    firstName: String!
+    lastName: String!
+    position: String!
+    salary: Int
+    age: Int
+    dob: Date!
+}
+
+type Employee implements BasicEmployee {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    position: String!
+    salary: Int
+    age: Int
+    dob: Date!
+    department: Department
+    organization: Organization
+}
+
+input EmployeeInput {
+    firstName: String!
+    lastName: String!
+    position: String!
+    salary: Int
+    age: Int
+    organizationId: Int!
+    departmentId: Int!
+    dob: Date!
+}
+
+input EmployeeFilter {
+    page: Paging
+    salary: FilterField
+    age: FilterField
+    position: FilterField
+}
+

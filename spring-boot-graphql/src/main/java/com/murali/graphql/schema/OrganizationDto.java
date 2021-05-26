@@ -1,4 +1,4 @@
-package com.murali.rest.schema;
+package com.murali.graphql.schema;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -13,16 +13,9 @@ import lombok.extern.jackson.Jacksonized;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Jacksonized
-public class EmployeeDto {
+public class OrganizationDto {
 
     private Integer id;
-    private String firstName;
-    private String lastName;
-    private String position;
-    private Integer salary;
-    private Integer age;
-    private String dob;
-    private Integer departmentId;
-    private Integer orgId;
+    private String name;
 
 }

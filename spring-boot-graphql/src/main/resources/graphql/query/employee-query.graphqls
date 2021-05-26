@@ -1,0 +1,5 @@
+type Query {
+    getAllEmployee: [Employee]
+    getEmployeeWithFilter(filter: EmployeeFilter): [Employee]
+    getEmployee(id: ID!): Employee!
+}

@@ -1,0 +1,5 @@
+extend type Mutation {
+    addDepartment(dep: DepartmentInput!): Department!
+    deleteDepartment(id: ID!): String!
+    updateDepartment(id: ID!, dep: DepartmentInput!): Department!
+}

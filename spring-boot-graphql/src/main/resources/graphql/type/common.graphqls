@@ -1,0 +1,18 @@
+input FilterField {
+    operator: FilterOperator!
+    value: String!
+}
+
+input Paging {
+    limit: Int!
+    page: Int!
+}
+
+enum FilterOperator {
+    lt, le, gt, ge, eq, endsWith, startsWith, contains
+}
+
+interface NameAndId {
+    id: ID!
+    name : String!
+}

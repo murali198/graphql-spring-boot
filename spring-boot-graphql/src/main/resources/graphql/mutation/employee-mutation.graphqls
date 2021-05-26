@@ -1,0 +1,5 @@
+extend type Mutation {
+    addEmployee(employee: EmployeeInput!): Employee!
+    deleteEmployee(id: ID!): String!
+    updateEmployee(id: ID!, employee: EmployeeInput!): Employee!
+}

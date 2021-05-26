@@ -1,0 +1,4 @@
+type Mutation {
+    addOrganization(org: OrganizationInput!): Organization!
+    updateOrganization(id: ID!, org: OrganizationInput!): Organization!
+}

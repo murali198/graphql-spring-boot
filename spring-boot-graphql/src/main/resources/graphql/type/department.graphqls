@@ -1,0 +1,12 @@
+
+input DepartmentInput {
+    name: String!
+    organizationId: Int
+}
+
+type Department implements NameAndId {
+    id: ID!
+    name: String!
+    organization: Organization
+    employees: [Employee]
+}

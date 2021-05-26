@@ -1,0 +1,4 @@
+extend type Query {
+    getAllDepartment: [Department!]!
+    getDepartment(id: ID!): Department!
+}
