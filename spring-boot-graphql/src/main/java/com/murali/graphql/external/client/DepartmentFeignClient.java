@@ -30,4 +30,7 @@ public interface DepartmentFeignClient {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     DepartmentDto getDepartment(@PathVariable("id") String id);
 
+    @RequestMapping(method = RequestMethod.GET, value = "/org/{orgId}")
+    List<DepartmentDto> getDepartmentByOrg(String orgId);
+
 }

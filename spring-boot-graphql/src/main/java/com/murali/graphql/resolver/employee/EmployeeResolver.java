@@ -1,4 +1,4 @@
-package com.murali.graphql.resolver;
+package com.murali.graphql.resolver.employee;
 
 import com.murali.graphql.dto.Department;
 import com.murali.graphql.dto.Employee;
@@ -27,6 +27,7 @@ public class EmployeeResolver implements GraphQLResolver<Employee> {
             return Department.builder()
                     .id(departmentDto.getId())
                     .name(departmentDto.getName())
+                    .orgId(departmentDto.getOrgId())
                     .build();
         }
         return null;

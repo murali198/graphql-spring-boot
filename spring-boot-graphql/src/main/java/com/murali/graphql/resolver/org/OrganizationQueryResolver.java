@@ -1,4 +1,4 @@
-package com.murali.graphql.resolver;
+package com.murali.graphql.resolver.org;
 
 import com.murali.graphql.dto.Organization;
 import com.murali.graphql.external.client.OrganizationFeignClient;

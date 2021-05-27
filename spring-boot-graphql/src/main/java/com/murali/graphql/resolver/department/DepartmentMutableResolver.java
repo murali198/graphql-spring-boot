@@ -1,4 +1,4 @@
-package com.murali.graphql.resolver;
+package com.murali.graphql.resolver.department;
 
 import com.murali.graphql.dto.Department;
 import com.murali.graphql.dto.DepartmentInput;

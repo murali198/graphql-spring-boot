@@ -28,4 +28,10 @@ public interface EmployeeFeignClient {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     EmployeeDto getEmployee(@PathVariable("id") String id);
 
+    @RequestMapping(method = RequestMethod.GET, value = "/org/{orgId}")
+    List<EmployeeDto>  getEmployeeByOrg(@PathVariable("orgId") String orgId);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/dep/{depId}}")
+    List<EmployeeDto> getEmployeeByDep(@PathVariable("depId") String depId);
+
 }

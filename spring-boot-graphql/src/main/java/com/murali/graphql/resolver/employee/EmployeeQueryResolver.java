@@ -1,4 +1,4 @@
-package com.murali.graphql.resolver;
+package com.murali.graphql.resolver.employee;
 
 import com.murali.graphql.dto.Employee;
 import com.murali.graphql.dto.EmployeeFilter;
@@ -58,25 +58,33 @@ public class EmployeeQueryResolver implements GraphQLQueryResolver {
 	}
 
 	public List<Employee> getEmployeeWithFilter(EmployeeFilter filter) {
-		EmployeeFilterDto filterDto = EmployeeFilterDto.builder()
-				.page(PagingDto.builder()
-						.limit(filter.getPage().getLimit())
-						.page(filter.getPage().getPage())
-						.build())
-				.age(FilterFieldDto.builder()
-						.operator(FilterOperator.valueOf(filter.getAge().getOperator().name()))
-						.value(filter.getAge().getValue())
-						.build())
-				.position(FilterFieldDto.builder()
-						.operator(FilterOperator.valueOf(filter.getPosition().getOperator().name()))
-						.value(filter.getPosition().getValue())
-						.build())
-				.salary(FilterFieldDto.builder()
-						.operator(FilterOperator.valueOf(filter.getSalary().getOperator().name()))
-						.value(filter.getSalary().getValue())
-						.build())
-				.build();
-		List<EmployeeDto> employeeDtoList = employeeFeignClient.getEmployee(filterDto);
+
+		EmployeeFilterDto.EmployeeFilterDtoBuilder filterDto = EmployeeFilterDto.builder();
+		if(filter.getPage() != null) {
+			filterDto = filterDto.page(PagingDto.builder()
+					.limit(filter.getPage().getLimit())
+					.page(filter.getPage().getPage())
+					.build());
+		}
+		if(filter.getAge() != null) {
+			filterDto = filterDto.age(FilterFieldDto.builder()
+					.operator(FilterOperator.valueOf(filter.getAge().getOperator().name()))
+					.value(filter.getAge().getValue())
+					.build());
+		}
+		if(filter.getPosition() != null) {
+			filterDto = filterDto.position(FilterFieldDto.builder()
+					.operator(FilterOperator.valueOf(filter.getPosition().getOperator().name()))
+					.value(filter.getPosition().getValue())
+					.build());
+		}
+		if(filter.getSalary() != null) {
+			filterDto = filterDto.salary(FilterFieldDto.builder()
+					.operator(FilterOperator.valueOf(filter.getSalary().getOperator().name()))
+					.value(filter.getSalary().getValue())
+					.build());
+		}
+		List<EmployeeDto> employeeDtoList = employeeFeignClient.getEmployee(filterDto.build());
 		return employeeDtoList.stream()
 				.map(dto -> Employee.builder()
 						.age(dto.getAge())

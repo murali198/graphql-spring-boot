@@ -1,4 +1,4 @@
-package com.murali.graphql.resolver;
+package com.murali.graphql.resolver.employee;
 
 import com.murali.graphql.dto.Employee;
 import com.murali.graphql.dto.EmployeeInput;
