@@ -16,4 +16,9 @@ public interface EmployeeService {
     String deleteEmployee(String id);
 
     List<EmployeeDto> getEmployee(EmployeeFilterDto filterDto);
+
+    List<EmployeeDto> getEmployeeByDep(String depId);
+
+    List<EmployeeDto> getEmployeeByOrg(String orgID);
+
 }

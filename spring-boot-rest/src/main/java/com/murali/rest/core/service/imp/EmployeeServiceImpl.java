@@ -1,6 +1,8 @@
 package com.murali.rest.core.service.imp;
 
+import com.murali.rest.core.domain.Department;
 import com.murali.rest.core.domain.Employee;
+import com.murali.rest.core.domain.Organization;
 import com.murali.rest.core.service.EmployeeService;
 import com.murali.rest.repository.DepartmentRepository;
 import com.murali.rest.repository.EmployeeRepository;
@@ -53,6 +55,50 @@ public class EmployeeServiceImpl implements EmployeeService {
             empList = new ArrayList<>();
             iterable.forEach(empList::add);
         }
+        if(empList != null) {
+            return empList.stream()
+                    .map(emp -> EmployeeDto.builder()
+                            .id(emp.getId())
+                            .age(emp.getAge())
+                            .departmentId(emp.getDepartment().getId())
+                            .firstName(emp.getFirstName())
+                            .lastName(emp.getLastName())
+                            .orgId(emp.getOrganization().getId())
+                            .position(emp.getPosition())
+                            .salary(emp.getSalary())
+                            .dob(emp.getDob().format(DateTimeFormatter.ISO_DATE))
+                            .build())
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<EmployeeDto> getEmployeeByDep(String depId) {
+        Department department = depRepository.findById(Integer.valueOf(depId)).get();
+        List<Employee> empList = empRepository.findByDepartment(department);
+        if(empList != null) {
+            return empList.stream()
+                    .map(emp -> EmployeeDto.builder()
+                            .id(emp.getId())
+                            .age(emp.getAge())
+                            .departmentId(emp.getDepartment().getId())
+                            .firstName(emp.getFirstName())
+                            .lastName(emp.getLastName())
+                            .orgId(emp.getOrganization().getId())
+                            .position(emp.getPosition())
+                            .salary(emp.getSalary())
+                            .dob(emp.getDob().format(DateTimeFormatter.ISO_DATE))
+                            .build())
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<EmployeeDto> getEmployeeByOrg(String orgID) {
+        Organization org = orgRepository.findById(Integer.valueOf(orgID)).get();
+        List<Employee> empList = empRepository.findByOrganization(org);
         if(empList != null) {
             return empList.stream()
                     .map(emp -> EmployeeDto.builder()

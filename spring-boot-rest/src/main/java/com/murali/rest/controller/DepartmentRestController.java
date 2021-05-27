@@ -2,7 +2,6 @@ package com.murali.rest.controller;
 
 import com.murali.rest.core.service.DepartmentService;
 import com.murali.rest.schema.DepartmentDto;
-import com.murali.rest.schema.EmployeeDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -49,5 +48,10 @@ public class DepartmentRestController {
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteDepartment(@PathVariable("id") String id) {
         return ResponseEntity.ok(depService.deleteDepartment(id));
+    }
+
+    @GetMapping("/org/{orgId}")
+    public ResponseEntity<List<DepartmentDto>> getDepartmentByOrg(@PathVariable("orgId") String orgId) {
+        return ResponseEntity.ok(depService.getDepartmentByOrg(orgId));
     }
 }

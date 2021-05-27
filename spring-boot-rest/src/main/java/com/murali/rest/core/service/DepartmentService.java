@@ -15,4 +15,8 @@ public interface DepartmentService {
     String deleteDepartment(String id);
 
     List<DepartmentDto> getAllDepartment();
+
+    List<DepartmentDto> getDepartmentByOrg(String orgId);
 }
+
+

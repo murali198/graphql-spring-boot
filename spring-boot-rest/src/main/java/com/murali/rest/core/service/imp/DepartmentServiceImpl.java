@@ -6,7 +6,6 @@ import com.murali.rest.core.service.DepartmentService;
 import com.murali.rest.repository.DepartmentRepository;
 import com.murali.rest.repository.OrganizationRepository;
 import com.murali.rest.schema.DepartmentDto;
-import com.murali.rest.schema.EmployeeDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -72,6 +71,20 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<DepartmentDto> getAllDepartment() {
         List<Department> departments = new ArrayList<>();
         depRepository.findAll().forEach(departments::add);
+        return departments.stream()
+                .map(dep -> DepartmentDto.builder()
+                        .name(dep.getName())
+                        .id(dep.getId())
+                        .orgId(dep.getOrganization().getId())
+                        .build()
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DepartmentDto> getDepartmentByOrg(String orgId) {
+        Organization organization = orgRepository.findById(Integer.valueOf(orgId)).get();
+        List<Department> departments = depRepository.findByOrganization(organization);
         return departments.stream()
                 .map(dep -> DepartmentDto.builder()
                         .name(dep.getName())

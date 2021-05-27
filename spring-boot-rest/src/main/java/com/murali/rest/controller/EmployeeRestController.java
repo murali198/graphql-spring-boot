@@ -50,4 +50,14 @@ public class EmployeeRestController {
     public ResponseEntity<List<EmployeeDto>> getEmployee(@RequestBody @Validated EmployeeFilterDto filterDto) {
         return ResponseEntity.ok(employeeService.getEmployee(filterDto));
     }
+
+    @GetMapping("/dep/{depId}")
+    public ResponseEntity<List<EmployeeDto>> getEmployeeByDep(@PathVariable("depId") String depId) {
+        return ResponseEntity.ok(employeeService.getEmployeeByDep(depId));
+    }
+
+    @GetMapping("/org/{orgId}")
+    public ResponseEntity<List<EmployeeDto>> getEmployeeByOrg(@PathVariable("orgId") String orgId) {
+        return ResponseEntity.ok(employeeService.getEmployeeByOrg(orgId));
+    }
 }
