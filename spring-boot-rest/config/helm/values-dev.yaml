@@ -1,0 +1,6 @@
+deployment:
+  containerPort: 8080
+  replicaCount: 1
+  environment:
+    - name: spring.config.location
+      value: /config/application.yaml

@@ -1,0 +1,64 @@
+# Default values for helm-commons.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  nameOverride: "rest-service"
+  fullnameOverride: ""
+
+image:
+  repository: docker.io/muralipdocker/rest-sample
+  pullPolicy: Always
+  tag: latest
+
+service:
+  name: rest-service
+  type: ClusterIP
+  port:
+    number: 80
+
+deployment:
+  containerPort: 8080
+  replicaCount: 1
+  environment:
+    - name: spring.config.location
+      value: /config/application.yaml
+  volumeMounts:
+    - name: ssl
+      mountPath: /ssl
+  volumes:
+    - name: ssl
+
+configmap:
+  volumeMounts:
+    enabled: true
+    mountPath: /config
+
+probe:
+  enableLivenessProbe: true
+  enableReadinessProbe: true
+  healthcheckEndPoint: /actuator/health
+  periodSeconds: 5
+  initialDelaySec: 30
+  timeoutSeconds: 6
+  successThreshold: 1
+  failureThreshold: 10
+
+resources: {}
+
+ingress:
+  https:
+    enabled: false
+  hosts: []
+
+istio:
+  virtualService:
+    enable: true
+    timeout: 30s
+  destinationRule:
+    enable: true
+    circuitBreak:
+      enabled: true
+      consecutiveErrors: 20
+      interval: 5m
+      baseEjectTime: 1m
